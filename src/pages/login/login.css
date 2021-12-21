@@ -1,0 +1,56 @@
+/*FORMATACAO DO PLANO NO GERAL*/
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  height: 82vh;
+}
+.form {
+  padding-top: -20px;
+}
+
+.placeholderemail {
+  height: 35px;
+  width: 330px;
+  font-size: 13.5px;
+  background-color: rgb(250, 250, 250);
+  border-radius: 5px;
+  border-color: rgb(201, 201, 201);
+  border-width: 2px;
+  border-style: solid;
+}
+.placeholderpass {
+  height: 35px;
+  width: 330px;
+  font-size: 13.5px;
+  border-radius: 5px;
+  border-color: rgb(201, 201, 201);
+  border-width: 2px;
+  border-style: solid;
+}
+.passLogin {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.totalbotaologin{
+  display: flex;
+  justify-content: center;
+}
+.botaoLogin {
+  
+  background: #003c4d;
+  color: white;
+  height: 35px;
+  width: 100px;
+  border-radius: 8px;
+  font-size: 15px;
+}
+.totalredirectregister{
+  padding-top: 10px;
+}
+.redirectregister {
+  background-color: white;
+  color: blue;
+}
