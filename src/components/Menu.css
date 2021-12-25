@@ -111,3 +111,11 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 } 
+.creators{
+  display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size:small;
+    color:grey;
+    font-family: "Times New Roman", Times, serif;
+}

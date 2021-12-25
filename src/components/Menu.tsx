@@ -91,10 +91,7 @@ const Menu: React.FC = () => {
         <IonList id="inbox-list">
           <IonListHeader>
             
-            <img
-              src="https://lh3.googleusercontent.com/Df01utHa2kpkfNOqokFuE0Kgz92Kx1Ly0UCg7_WZZHHsmJqy3o3C4-PpTD4AMpju8jEYlBRaUJLj6GVKs1pmXMNUYV-msbQqmosYGKDegfPbdZCzaK5gXBHm6TOtCAgN1VlEZom3ZsgVEr9A0h2rIHkGaopXiH7-SIAiCrJ0-1U6nSPghZ2d0W2OY38EmlsWO6p3yTDPsNOzgqIpXhtcop-JoVpSaRUx7h2AHpwbWMOhkVRvCZWz1L8KJp5yH5KfkE4_vgWsiNFom4_e024ufoLc2mTytv392M7zTGoPv4lcsB2Gj2Qx4n3w72edFlt3SZ83xwjc4gwLnjH-jKk1ku8YPgm58Kvask3_llAgnARX7EJAWgoiM6C4o1DlGC5h9vJ1YH9wsbRtXuA71sYIq_IlZ3_3blMxEfJ6dFt35zwuyK108DziZfT0BLT5scjQQxvtHfwFniN0cQnA8vxI6bAn0TRKu3JzwC4YKUYe2oQKJEqyAv7GOW5CXQMuHFpRhfnt8uOEtWEyBxv_0A3O56qhd7YUa7vehnQvhz6Hl-4xP7h8xYnTpw3lwpfVY7GCUNcHXuUe_kn9Guw1etqYddRXmpx8sqIA8nTKVu1NjTkdvolGcjHWjmQs-srzqzJyWpYU-_FvO1lIUYcmffie5vO-SUndPjku-5T8T0dVAsyfUXE9dW0-rxHs3nVwQqp3ld6Eqxim6JBcc8L3=s40-no?authuser=0"
-              alt=""
-            />
+          <img src={require("./images/3.png")} />
             REMIS
           </IonListHeader>
          <IonList/>
@@ -121,6 +118,7 @@ const Menu: React.FC = () => {
             );
           })}
         </IonList>
+        <div className="creators">REMIS®</div>
       </IonContent>
     </IonMenu>
   );
