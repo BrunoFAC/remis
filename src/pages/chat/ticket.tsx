@@ -21,13 +21,23 @@ import "./chat.css";
 import { useHistory } from "react-router-dom";
 import "./ticket.css";
 import { useState } from "react";
+import Axios from "axios";
 const Ticket: React.FC = () => {
   const history = useHistory();
+  const [reasonticket, setReasonticket] = useState("");
+  const [selected, setSelected] = useState<string>("");
+  Axios.post("http://localhost:8001/ticketsubmitted", {
+    selected: selected,
+    reasonticket: reasonticket,
+  }).then((response) => {
+    console.log(response);
+  });
   function back() {
     history.push("/page/Chat");
   }
-
-  const [selected, setSelected] = useState<string>("Bill");
+  function submittedTicket() {
+    alert("Ticket submited!");
+  }
   return (
     <IonPage>
       <IonHeader>
@@ -78,6 +88,7 @@ const Ticket: React.FC = () => {
           className="placeholderticket"
           maxLength={450}
           placeholder="Reason.."
+          onChange={(e) => setReasonticket(e.target.value)}
         />
         <div className="fullsubmitticketbut">
           <button className="buttonsubmitticket">Submit Ticket</button>
