@@ -11,7 +11,7 @@ import {
   IonSplitPane,
 } from "@ionic/react";
 
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import {
   analyticsOutline,
   analyticsSharp,
@@ -74,27 +74,21 @@ const appPages: AppPage[] = [
     url: "/page/ExtraServices",
     iosIcon: constructOutline,
     mdIcon: constructSharp,
-  },
-  {
-    title: "Login",
-    url: "/page/Login",
-    iosIcon: logInOutline,
-    mdIcon: logInOutline,
-  },
+  }
 ];
 const Menu: React.FC = () => {
   const location = useLocation();
-
+ 
+  
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonList id="inbox-list">
           <IonListHeader>
-            
-          <img src={require("./images/3.png")} />
+            <img src={require("./images/3.png")} />
             REMIS
           </IonListHeader>
-         <IonList/>
+          <IonList />
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>

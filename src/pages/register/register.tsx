@@ -24,37 +24,39 @@ const Register: React.FC = () => {
   const [telemovel, setTelemovel] = useState("");
   const history = useHistory();
   const register = () => {
-    axios
-      .post("https://remis.jbr-projects.pt/db/index.php?f=regist_tenant", {
-        firstname: firstname,
-        lastname: lastname,
-        email: emailReg,
-        password: passwordReg,
-        telemovel: telemovel,
-      })
-      .then((response) => {
-        if (response.data == 0) {
-          console.log("user not registered");
-          alert("Successful not registered.");
-        } else {
-          console.log(response.data);
-          alert("Successful registered.");
-        }
-      });
+    if (
+      firstname == "" ||
+      lastname == "" ||
+      emailReg == "" ||
+      passwordReg == "" ||
+      telemovel.length < 9
+    ) {
+      alert ("Invalid register");
+    } else {
+      axios
+        .post("https://remis.jbr-projects.pt/db/index.php?f=regist_tenant", {
+          firstname: firstname,
+          lastname: lastname,
+          email: emailReg,
+          password: passwordReg,
+          telemovel: telemovel,
+        })
+        .then((response) => {
+          if (response.data == 0) {
+            console.log("user not registered");
+            alert("Successful not registered.");
+          } else {
+            console.log(response.data);
+            alert("Successful registered.");
+          }
+        });
+    }
   };
   const alreadyhave = () => {
     history.push("/page/Login");
   };
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonMenuButton />
-          </IonButtons>
-          <IonTitle>Register</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent fullscreen>
         <div className="register">
           <img src={require("./images/Logo.png")} />

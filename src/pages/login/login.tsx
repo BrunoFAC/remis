@@ -3,8 +3,12 @@ import {
   IonButtons,
   IonContent,
   IonHeader,
+  IonItem,
+  IonLabel,
   IonMenuButton,
   IonPage,
+  IonSelect,
+  IonSelectOption,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -12,45 +16,57 @@ import "./login.css";
 import React, { useEffect, useState } from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import axios from "axios";
+import { options } from "ionicons/icons";
+
 const Login: React.FC = () => {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  function successfullogin() {
-    axios
-      .post("https://remis.jbr-projects.pt/db/index.php?f=login_tenant", {
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        if (response.data == 0) {
-          console.log("user not registered");
-          alert("no.");
-        } else {
-          console.log(response.data);
-          alert("login.");
-        }
-      });
+  const [user, setUser] = useState("");
+  function fullogin() {
+    if (user == "0") {
+      axios
+        .post("https://remis.jbr-projects.pt/db/index.php?f=login_tenant", {
+          email: email,
+          password: password,
+        })
+        .then((response) => {
+          if (response.data == 0) {
+            console.log("user not registered");
+            alert("Incorrect login!");
+          } else {
+            localStorage.setItem("user-info", response.data);
+            alert("Successful login!");
+            history.push("/page/Dashboard")
+          }
+        });
+    } else if (user == "1") {
+      axios
+        .post("https://remis.jbr-projects.pt/db/index.php?f=login_landlord", {
+          email: email,
+          password: password,
+        })
+        .then((response) => {
+          if (response.data == 0) {
+            console.log("incorrect user");
+            alert("Incorrect login!");
+          } else {
+            localStorage.setItem("user-info", response.data);
+            alert("Successful login!");
+            history.push("/page/Dashboard")
+          }
+        });
+    }
   }
-
   const donthave = () => {
     history.push("/page/register");
   };
   return (
     <div className="LoginPage">
       <IonPage>
-        <IonHeader>
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonMenuButton />
-            </IonButtons>
-            <IonTitle>Login</IonTitle>
-          </IonToolbar>
-        </IonHeader>
         <IonContent fullscreen>
           <div className="login">
             <img src={require("./images/Logo.png")} />
-
             <div className="form">
               <div className="emailLogin">
                 <input
@@ -74,8 +90,21 @@ const Login: React.FC = () => {
                   }}
                 />
               </div>
+              <IonItem>
+                <IonLabel>User Account</IonLabel>
+                <IonSelect
+                  onIonChange={(e) => setUser(e.detail.value)}
+                  interface="popover"
+                  interfaceOptions={options}
+                >
+                  <IonSelectOption value="0">Tenant</IonSelectOption>
+                  <IonSelectOption value="1">Landlord</IonSelectOption>
+                </IonSelect>
+              </IonItem>
               <div className="totalbotaologin">
-                <button className="botaoLogin" onClick={successfullogin}>Sign in</button>
+                <button className="botaoLogin" onClick={fullogin}>
+                  Sign In
+                </button>
               </div>
             </div>
             <div className="totalredirectregister">

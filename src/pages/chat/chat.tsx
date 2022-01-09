@@ -5,6 +5,12 @@ import {
   IonHeader,
   IonIcon,
   IonInput,
+  IonItem,
+  IonItemOption,
+  IonItemOptions,
+  IonItemSliding,
+  IonLabel,
+  IonList,
   IonMenuButton,
   IonModal,
   IonPage,
@@ -13,18 +19,49 @@ import {
 } from "@ionic/react";
 import "./chat.css";
 import { useHistory } from "react-router-dom";
-import { BACKDROP } from "@ionic/core/dist/types/utils/overlays";
-import { useState } from "react";
+import {
+  JSXElementConstructor,
+  ReactElement,
+  ReactNodeArray,
+  ReactPortal,
+  useEffect,
+  useState,
+} from "react";
 import { text } from "ionicons/icons";
+import { decodeToken } from "react-jwt";
+import { type } from "os";
+import axios from "axios";
 
 const Chat: React.FC = () => {
-  const [message, setMessage] = useState("");
-  const [messages] = useState([]);
+  let [messages, setMessages] = useState([]);
   const history = useHistory();
-  function ticket() {
-    history.push("/page/Ticket");
+  let [myDecodedToken, setMyDecodedToken] = useState([]);
+  let [id, setId] = useState(0);
+  function gettenantschat() {
+    const token = localStorage.getItem("user-info")?.toString();
+    if (token != null) {
+      let tokend: any = [];
+      tokend = decodeToken(token);
+      setMyDecodedToken(tokend);
+      setId(tokend.id);
+      axios
+        .post("https://remis.jbr-projects.pt/db/index.php?f=chat", {
+          type: tokend.type,
+          id: tokend.id,
+        })
+        .then((response) => {
+          if (response.data == 0) {
+            console.log("cannot show messages");
+          } else {
+            setMessages(response.data);
+          }
+        });
+    }
   }
-  function sendmessage() {}
+  //preciso hora , sessao iniciada e para quem envia, corpo
+  useEffect(() => {
+    gettenantschat();
+  }, []);
   return (
     <IonPage>
       <IonHeader>
@@ -36,30 +73,16 @@ const Chat: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <div className="landlordtalk">Landlord - Live Chat</div>
-        <div className="textareatalk">
-          <textarea
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            className="placeholdertalk"
-            maxLength={450}
-            placeholder="What can I help you with ?"
-          />
-        </div>
+        {messages.map((val: any, k: any) => {
+          console.log(val.sender);
+          console.log(id);
 
-        <div className="fullmensagebut">
-          <button onClick={sendmessage} className="buttonmessage">
-            Submit Message
-          </button>
-        </div>
-        <div className="fullticketbut">
-          <button onClick={ticket} className="buttonticket">
-            Create Ticket
-          </button>
-          {messages.map(()=>{
-
-          })}
-        </div>
+          if (val.sender == id) {/*quem esta a enviar mensagens*/ 
+            return <div className="sender">{val.text}</div>;
+          } else {
+            return <div className="received">{val.text}</div>;
+          }
+        })}
       </IonContent>
     </IonPage>
   );

@@ -31,6 +31,7 @@ import Login from "./pages/login/login";
 import Register from "./pages/register/register";
 import Chat from "./pages/chat/chat";
 import Ticket from "./pages/chat/ticket";
+import Meetings from "./pages/meetings/meetings";
 
 setupIonicReact();
 
@@ -58,6 +59,9 @@ const App: React.FC = () => {
             </Route>
             <Route path="/page/Ticket">
               <Ticket />
+            </Route>
+            <Route path="/page/Meetings">
+              <Meetings />
             </Route>
           </IonRouterOutlet>
         </IonSplitPane>

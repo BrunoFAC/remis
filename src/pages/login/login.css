@@ -35,12 +35,11 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
-.totalbotaologin{
+.totalbotaologin {
   display: flex;
   justify-content: center;
 }
 .botaoLogin {
-  
   background: #003c4d;
   color: white;
   height: 35px;
@@ -48,7 +47,7 @@
   border-radius: 8px;
   font-size: 15px;
 }
-.totalredirectregister{
+.totalredirectregister {
   padding-top: 10px;
 }
 .redirectregister {
