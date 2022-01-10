@@ -3,7 +3,7 @@
 
   justify-content: center;
   align-items: center;
-  background: #003c4d;
+  background: #3880ff;
   color: white;
   height: 25px;
   width: 75px;
@@ -35,10 +35,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #003c4d;
+  background: #3880ff;
   color: white;
   height: 25px;
   width: 130px;
   border-radius: 8px;
   font-size: 15px;
+}
+.inputticket{
+  border: 1px solid rgb(228, 228, 228);
+  display: flex;
+  padding-top: 10px;
 }

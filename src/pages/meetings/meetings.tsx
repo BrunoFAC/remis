@@ -14,17 +14,19 @@ import {
   IonPage,
   IonRadio,
   IonRadioGroup,
+  IonTextarea,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";
 import { CalendarComponent } from "@syncfusion/ej2-react-calendars";
 import "./meeting.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Axios from "axios";
-import { today } from "ionicons/icons";
+import { ticketOutline, today } from "ionicons/icons";
 const Meetings: React.FC = () => {
   const history = useHistory();
+
   const dateValue: Date = new Date(
     new Date().getFullYear(),
     new Date().getMonth(),
@@ -32,10 +34,14 @@ const Meetings: React.FC = () => {
   );
   const startDate: Date = new Date(
     new Date().getFullYear(),
-    new Date().getMonth(),
-    
+    new Date().getMonth()
   );
-
+  useEffect(() => {
+    if (localStorage.getItem('user-info')) {
+        history.push("/page/Login")
+    }
+}, [])
+  
   return (
     <IonPage>
       <IonHeader>
@@ -47,8 +53,19 @@ const Meetings: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+        <div className="meetings">
+          <CalendarComponent
+            isMultiSelection={true}
+            value={dateValue}
+          ></CalendarComponent>
+        </div>
         <div>
-          <CalendarComponent isMultiSelection={true} value={dateValue}></CalendarComponent>
+          <div className="inputmeetings">
+            <IonTextarea className="" placeholder="Reason:"></IonTextarea>
+          </div>
+          <IonButton expand="block" color="danger">
+            Make an Appointment
+          </IonButton>
         </div>
       </IonContent>
     </IonPage>
@@ -56,3 +73,4 @@ const Meetings: React.FC = () => {
 };
 
 export default Meetings;
+

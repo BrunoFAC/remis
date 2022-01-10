@@ -1,1 +1,12 @@
 @import url("https://cdn.syncfusion.com/ej2/material.css");
+.meetings{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+.inputmeetings {
+    border: 1px solid #e3165b;
+    display: flex;
+    padding-top: 10px;
+  }

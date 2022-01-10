@@ -2,6 +2,7 @@ import {
   IonButton,
   IonButtons,
   IonContent,
+  IonFooter,
   IonHeader,
   IonIcon,
   IonInput,
@@ -14,7 +15,9 @@ import {
   IonMenuButton,
   IonModal,
   IonPage,
+  IonTextarea,
   IonTitle,
+  IonToggle,
   IonToolbar,
 } from "@ionic/react";
 import "./chat.css";
@@ -27,14 +30,20 @@ import {
   useEffect,
   useState,
 } from "react";
-import { text } from "ionicons/icons";
 import { decodeToken } from "react-jwt";
-import { type } from "os";
 import axios from "axios";
+import { send, ticketOutline } from "ionicons/icons";
+import { url } from "inspector";
 
 const Chat: React.FC = () => {
-  let [messages, setMessages] = useState([]);
   const history = useHistory();
+  useEffect(() => {
+    if (!localStorage.getItem("user-info")) {
+      history.push("/page/Login");
+    }
+  }, []);
+  let [messages, setMessages] = useState([]);
+  
   let [myDecodedToken, setMyDecodedToken] = useState([]);
   let [id, setId] = useState(0);
   function gettenantschat() {
@@ -54,6 +63,7 @@ const Chat: React.FC = () => {
             console.log("cannot show messages");
           } else {
             setMessages(response.data);
+            console.log(response.data);
           }
         });
     }
@@ -76,14 +86,58 @@ const Chat: React.FC = () => {
         {messages.map((val: any, k: any) => {
           console.log(val.sender);
           console.log(id);
+          function showtime() {
+            <div>
+              <p>{val.tsent}</p>
+            </div>;
+          }
+          if (val.sender == id) {
+            /*quem esta a enviar mensagens*/
 
-          if (val.sender == id) {/*quem esta a enviar mensagens*/ 
-            return <div className="sender">{val.text}</div>;
+            return (
+              <div className="spacing">
+                <IonButton
+                  onClick={showtime}
+                  className="whosends"
+                  size="small"
+                  color="primary"
+                >
+                  {val.text}
+                </IonButton>
+                <div className="timesentsends">
+                  <label>Sent {val.tsent}</label>
+                </div>
+              </div>
+            );
           } else {
-            return <div className="received">{val.text}</div>;
+            return (
+              <div className="spacing">
+                <IonButton
+                  onClick={showtime}
+                  className="whoreceives"
+                  size="small"
+                  color="medium"
+                >
+                  {val.text}
+                </IonButton>
+                <div className="timesentreceive">
+                  <label>Sent {val.tsent}</label>
+                </div>
+              </div>
+            );
           }
         })}
       </IonContent>
+      <IonFooter>
+        <div className="inputsends">
+          <IonTextarea placeholder="What can I help you with?"></IonTextarea>
+        </div>
+        <div className="sendbut">
+          <IonButton>
+            <IonIcon icon={send} />
+          </IonButton>
+        </div>
+      </IonFooter>
     </IonPage>
   );
 };

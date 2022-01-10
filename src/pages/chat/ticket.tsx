@@ -14,6 +14,7 @@ import {
   IonPage,
   IonRadio,
   IonRadioGroup,
+  IonTextarea,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -22,6 +23,7 @@ import { useHistory } from "react-router-dom";
 import "./ticket.css";
 import { useState } from "react";
 import Axios from "axios";
+import { ticket, ticketOutline, send } from "ionicons/icons";
 const Ticket: React.FC = () => {
   const history = useHistory();
   const [reasonticket, setReasonticket] = useState("");
@@ -81,18 +83,18 @@ const Ticket: React.FC = () => {
               <IonRadio slot="start" value="Others" />
             </IonItem>
           </IonRadioGroup>
-          <IonItemDivider>Your Selection</IonItemDivider>
+          <IonItemDivider>Topic</IonItemDivider>
           <IonItem>{selected ?? "(none selected"}</IonItem>
         </IonList>
-        <textarea
-          className="placeholderticket"
-          maxLength={450}
-          placeholder="Reason.."
-          onChange={(e) => setReasonticket(e.target.value)}
-        />
-        <div className="fullsubmitticketbut">
-          <button className="buttonsubmitticket">Submit Ticket</button>
+        <div className="inputticket">
+          <IonTextarea placeholder="What can I help you with?"></IonTextarea>
         </div>
+        <div className="sendbut">
+          <IonButton> Submit Ticket 
+            <IonIcon icon={send} />
+          </IonButton>
+        </div>
+        
       </IonContent>
     </IonPage>
   );
