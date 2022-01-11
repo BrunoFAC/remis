@@ -17,6 +17,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import axios from "axios";
 import { options } from "ionicons/icons";
+import Logo from "./images/Logo.png";
 
 const Login: React.FC = () => {
   const history = useHistory();
@@ -66,7 +67,7 @@ const Login: React.FC = () => {
       <IonPage>
         <IonContent fullscreen>
           <div className="login">
-            <img src={require("./images/Logo.png")} />
+            <img src={Logo} />
             <div className="form">
               <div className="emailLogin">
                 <input

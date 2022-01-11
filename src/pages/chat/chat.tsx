@@ -33,7 +33,6 @@ import {
 import { decodeToken } from "react-jwt";
 import axios from "axios";
 import { send, ticketOutline } from "ionicons/icons";
-import { url } from "inspector";
 
 const Chat: React.FC = () => {
   const history = useHistory();
@@ -43,11 +42,13 @@ const Chat: React.FC = () => {
     }
   }, []);
   let [messages, setMessages] = useState([]);
-  
+  const [text, setText] = useState<string>();
   let [myDecodedToken, setMyDecodedToken] = useState([]);
   let [id, setId] = useState(0);
+  let [receiverid, setReceiverid] = useState(0);
+
+  const token = localStorage.getItem("user-info")?.toString();
   function gettenantschat() {
-    const token = localStorage.getItem("user-info")?.toString();
     if (token != null) {
       let tokend: any = [];
       tokend = decodeToken(token);
@@ -63,15 +64,53 @@ const Chat: React.FC = () => {
             console.log("cannot show messages");
           } else {
             setMessages(response.data);
-            console.log(response.data);
+
+            console.log(response);
+            {
+              messages.map((val: any, k: any) => {
+                if (val.sender != tokend.id) {
+                return setReceiverid(val.sender);
+                }
+              });
+            }
           }
         });
     }
   }
+
+  function sendMessages() {
+    var date = new Date();
+    if (token != null) {
+      let tokend: any = [];
+      tokend = decodeToken(token);
+      setMyDecodedToken(tokend);
+      setId(tokend.id);
+      axios
+        .post("https://remis.jbr-projects.pt/db/index.php?f=sendMessage", {
+          id: tokend.id,
+          receiverid: receiverid,
+          type: tokend.type,
+          status: "Sent",
+          text: text,
+          tsent: date,
+        })
+        .then((result) => {
+          if (result.data == 0) {
+            console.log("cannot show messages");
+          } else {
+            console.log(result.data);
+                      setText(result.data);
+                      gettenantschat();
+          }
+        });
+    }
+  }
+
   //preciso hora , sessao iniciada e para quem envia, corpo
   useEffect(() => {
     gettenantschat();
   }, []);
+
   return (
     <IonPage>
       <IonHeader>
@@ -84,44 +123,31 @@ const Chat: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         {messages.map((val: any, k: any) => {
-          console.log(val.sender);
-          console.log(id);
-          function showtime() {
-            <div>
-              <p>{val.tsent}</p>
-            </div>;
-          }
           if (val.sender == id) {
             /*quem esta a enviar mensagens*/
 
             return (
-              <div className="spacing">
-                <IonButton
-                  onClick={showtime}
-                  className="whosends"
-                  size="small"
-                  color="primary"
-                >
+              <div className="spacing1">
+                <label className="whosends" color="primary">
                   {val.text}
-                </IonButton>
+                </label>
                 <div className="timesentsends">
-                  <label>Sent {val.tsent}</label>
+                  <label>
+                    {val.status} {val.tsent}
+                  </label>
                 </div>
               </div>
             );
           } else {
             return (
               <div className="spacing">
-                <IonButton
-                  onClick={showtime}
-                  className="whoreceives"
-                  size="small"
-                  color="medium"
-                >
+                <label className="whoreceives" color="medium">
                   {val.text}
-                </IonButton>
+                </label>
                 <div className="timesentreceive">
-                  <label>Sent {val.tsent}</label>
+                  <label>
+                    {val.status} {val.tsent}
+                  </label>
                 </div>
               </div>
             );
@@ -130,10 +156,13 @@ const Chat: React.FC = () => {
       </IonContent>
       <IonFooter>
         <div className="inputsends">
-          <IonTextarea placeholder="What can I help you with?"></IonTextarea>
+          <IonTextarea
+            onIonChange={(e) => setText(e.detail.value!)}
+            placeholder="What can I help you with?"
+          ></IonTextarea>
         </div>
         <div className="sendbut">
-          <IonButton>
+          <IonButton onClick={sendMessages}>
             <IonIcon icon={send} />
           </IonButton>
         </div>
