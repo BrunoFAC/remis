@@ -1,0 +1,23 @@
+@import url("https://cdn.syncfusion.com/ej2/material.css");
+.meetings{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+.inputmeetings {
+    border: 1px solid #e3165b;
+    display: flex;
+    padding-top: 10px;
+  }
+.serviceicon{
+    padding: 2vh;
+    border: 2px;
+    max-width: 300px;
+    max-height: 300px;
+    border-color: #e3165b;
+    background-color: #e3165b;
+}
+.servicebox{
+    background-color: aqua;
+}

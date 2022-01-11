@@ -32,6 +32,7 @@ import Register from "./pages/register/register";
 import Chat from "./pages/chat/chat";
 import Ticket from "./pages/chat/ticket";
 import Meetings from "./pages/meetings/meetings";
+import ExtraServices from "./pages/extraservices/extraservices";
 
 setupIonicReact();
 
@@ -62,6 +63,10 @@ const App: React.FC = () => {
             </Route>
             <Route path="/page/Meetings">
               <Meetings />
+            </Route>
+            
+            <Route path="/page/ExtraServices">
+              <ExtraServices />
             </Route>
           </IonRouterOutlet>
         </IonSplitPane>

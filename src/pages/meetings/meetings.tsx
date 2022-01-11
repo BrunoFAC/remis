@@ -20,7 +20,7 @@ import {
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";
 import { CalendarComponent } from "@syncfusion/ej2-react-calendars";
-import "./meeting.css";
+import "./meetings.css";
 import { useEffect, useState } from "react";
 import { decodeToken } from "react-jwt";
 import axios from "axios";

@@ -67,9 +67,9 @@ const Chat: React.FC = () => {
 
             console.log(response);
             {
-              messages.map((val: any, k: any) => {
+              messages.map((val: any) => {
                 if (val.sender != tokend.id) {
-                return setReceiverid(val.sender);
+                  return setReceiverid(val.sender);
                 }
               });
             }
@@ -99,8 +99,8 @@ const Chat: React.FC = () => {
             console.log("cannot show messages");
           } else {
             console.log(result.data);
-                      setText(result.data);
-                      gettenantschat();
+            setText(result.data);
+            gettenantschat();
           }
         });
     }
@@ -122,7 +122,7 @@ const Chat: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        {messages.map((val: any, k: any) => {
+        {messages.map((val: any) => {
           if (val.sender == id) {
             /*quem esta a enviar mensagens*/
 
