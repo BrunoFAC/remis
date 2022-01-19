@@ -68,7 +68,7 @@ const Meetings: React.FC = () => {
         <div className="meetings">
           <CalendarComponent
             isMultiSelection={false}
-            value={dateValue}
+            value={dateValue} 
             showTodayButton={false}
             
           ></CalendarComponent>

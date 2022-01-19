@@ -32,7 +32,7 @@ import {
 } from "react";
 import { decodeToken } from "react-jwt";
 import axios from "axios";
-import { send, ticketOutline } from "ionicons/icons";
+import { send } from "ionicons/icons";
 
 const Chat: React.FC = () => {
   const history = useHistory();
@@ -53,7 +53,7 @@ const Chat: React.FC = () => {
       let tokend: any = [];
       tokend = decodeToken(token);
       setMyDecodedToken(tokend);
-      setId(tokend.id);
+      setId(tokend.type);
       axios
         .post("https://remis.jbr-projects.pt/db/index.php?f=chat", {
           type: tokend.type,
@@ -71,6 +71,7 @@ const Chat: React.FC = () => {
                 if (val.sender != tokend.id) {
                   return setReceiverid(val.sender);
                 }
+
               });
             }
           }
@@ -84,7 +85,7 @@ const Chat: React.FC = () => {
       let tokend: any = [];
       tokend = decodeToken(token);
       setMyDecodedToken(tokend);
-      setId(tokend.id);
+      setId(tokend.type);
       axios
         .post("https://remis.jbr-projects.pt/db/index.php?f=sendMessage", {
           id: tokend.id,
@@ -98,9 +99,12 @@ const Chat: React.FC = () => {
           if (result.data == 0) {
             console.log("cannot show messages");
           } else {
-            console.log(result.data);
-            setText(result.data);
-            gettenantschat();
+            if (text ==""){
+              alert("You need to write a message")
+            }
+            else{         
+            gettenantschat();        
+          }
           }
         });
     }
@@ -123,20 +127,22 @@ const Chat: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         {messages.map((val: any) => {
+          
           if (val.sender == id) {
             /*quem esta a enviar mensagens*/
-
+            
             return (
+              
               <div className="spacing1">
-                <label className="whosends" color="primary">
-                  {val.text}
-                </label>
-                <div className="timesentsends">
-                  <label>
-                    {val.status} {val.tsent}
-                  </label>
-                </div>
+                <IonTextarea value={val.text}className="whosends" />
+                  
+                <br />
+                <IonTextarea value={val.tsent} className="timesentsends"/>
+                    
+                  
               </div>
+              
+              
             );
           } else {
             return (
@@ -144,6 +150,7 @@ const Chat: React.FC = () => {
                 <label className="whoreceives" color="medium">
                   {val.text}
                 </label>
+                <br/>
                 <div className="timesentreceive">
                   <label>
                     {val.status} {val.tsent}
