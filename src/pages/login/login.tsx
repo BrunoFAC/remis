@@ -54,7 +54,7 @@ const Login: React.FC = () => {
           } else {
             localStorage.setItem("user-info", response.data);
             alert("Successful login!");
-            history.push("/page/Dashboard")
+            history.push("/page/Meetings")
           }
         });
     }

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@awesome-cordova-plugins/calendar": "^5.38.0",
     "@capacitor/core": "3.3.3",
     "@ionic/react": "^6.0.0",
     "@ionic/react-router": "^6.0.0",
@@ -20,6 +21,7 @@
     "axios": "^0.24.0",
     "calendar-ui": "^0.0.2",
     "chatengine": "^0.0.4",
+    "cordova-plugin-calendar": "^5.1.6",
     "ionicons": "^5.4.0",
     "react": "^17.0.2",
     "react-chat-engine": "^1.11.22",
@@ -69,5 +71,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@capacitor/cli": "3.4.0"
   }
 }

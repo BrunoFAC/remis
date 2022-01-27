@@ -14,17 +14,17 @@
 .whosends {
   width: auto;
   overflow: hidden;
-  resize:both;
   padding: 4px;
-  margin-right: 5px;
+  margin-right: 10px;
+  margin-left: 30px;
   border-radius: 5px;
   -webkit-box-shadow: 2px 2px 5px #666;
   -moz-box-shadow: 2px 2px 5px #666;
   box-shadow: 1px 1px 1px #666;
-  background-color: #367cf7;
+  background-color: #003c4d;
   font-family: "Roboto", "Helvetica Neue", sans-serif;
   display: flex;
-  padding-left: 5px;
+  padding-left: 10px;
   flex-direction: column;
   color: white;
   align-items: right;
@@ -44,21 +44,22 @@
   flex-direction: column;
   color: white;
   align-items: left;
-  margin-right: 60px;
-  justify-content: right;
+  justify-content: left;
 }
 .spacing {
   padding-top: 8px;
+  display: grid;
+  justify-content: left;
   padding-left: 4px;
 }
 .spacing1 {
-  padding-top: 8px;
+  padding-top: 2PX;
   display: grid;
   justify-content: right;
   
 }
 .inputsends {
-  border: 1px solid #3880ff;
+  border: 1px solid #003c4d;
   display: flex;
   padding-top: 10px;
   background-color: white;
@@ -83,9 +84,11 @@
   align-items: right;
   justify-content: right;
   padding-right: 8px;
-  padding-top: 2px;
   float: right;
   font-size: small;
   color: grey;
   font-family: "Times New Roman", Times, serif;
+}
+.backgroundembaixo{
+  background-color: WHITE;
 }

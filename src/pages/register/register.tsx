@@ -63,7 +63,7 @@ const Register: React.FC = () => {
 
           <div className="firstnameRegisto">
             <input
-              className="nomeRegistoplaceholder"
+              className="registoplaceholder"
               type="text"
               onChange={(e) => {
                 setFirstname(e.target.value);
@@ -74,7 +74,7 @@ const Register: React.FC = () => {
           </div>
           <div className="firstnameRegisto">
             <input
-              className="nomeRegistoplaceholder"
+              className="registoplaceholder"
               type="text"
               onChange={(e) => {
                 setLastname(e.target.value);
@@ -85,7 +85,7 @@ const Register: React.FC = () => {
           </div>
           <div className="emailRegisto">
             <input
-              className="emailRegistoplaceholder"
+              className="registoplaceholder"
               type="email"
               onChange={(e) => {
                 setEmailReg(e.target.value);
@@ -96,7 +96,7 @@ const Register: React.FC = () => {
           </div>
           <div className="passRegisto">
             <input
-              className="passRegistoplaceholder"
+              className="registoplaceholder"
               type="password"
               onChange={(e) => {
                 setPasswordReg(e.target.value);

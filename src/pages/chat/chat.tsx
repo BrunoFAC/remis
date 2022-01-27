@@ -71,7 +71,6 @@ const Chat: React.FC = () => {
                 if (val.sender != tokend.id) {
                   return setReceiverid(val.sender);
                 }
-
               });
             }
           }
@@ -80,7 +79,22 @@ const Chat: React.FC = () => {
   }
 
   function sendMessages() {
-    var date = new Date();
+    var nowDate = new Date();
+    if (nowDate.getMonth() + 1 == 10) {
+      var string_date =
+        nowDate.getFullYear() +
+        "-" +
+        (nowDate.getMonth() + 1) +
+        "-" +
+        nowDate.getDate();
+    } else {
+      var string_date =
+        nowDate.getFullYear() +
+        "-0" +
+        (nowDate.getMonth() + 1) +
+        "-" +
+        nowDate.getDate();
+    }
     if (token != null) {
       let tokend: any = [];
       tokend = decodeToken(token);
@@ -93,18 +107,18 @@ const Chat: React.FC = () => {
           type: tokend.type,
           status: "Sent",
           text: text,
-          tsent: date,
+          tsent: string_date,
         })
         .then((result) => {
           if (result.data == 0) {
             console.log("cannot show messages");
           } else {
-            if (text ==""){
-              alert("You need to write a message")
+            if (text =="") {
+              alert("You need to write a message/ you can't spam the same message");
+            } else {
+              setText("")
+              gettenantschat(); 
             }
-            else{         
-            gettenantschat();        
-          }
           }
         });
     }
@@ -127,22 +141,21 @@ const Chat: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         {messages.map((val: any) => {
-          
           if (val.sender == id) {
             /*quem esta a enviar mensagens*/
-            
+
             return (
-              
               <div className="spacing1">
-                <IonTextarea value={val.text}className="whosends" />
-                  
-                <br />
-                <IonTextarea value={val.tsent} className="timesentsends"/>
-                    
-                  
+                <label className="whosends">{val.text}</label>
+
+               
+
+                <div className="spacing1">
+                  <label className="timesentsends">
+                    {val.status} {val.tsent}
+                  </label>
+                </div>
               </div>
-              
-              
             );
           } else {
             return (
@@ -150,7 +163,6 @@ const Chat: React.FC = () => {
                 <label className="whoreceives" color="medium">
                   {val.text}
                 </label>
-                <br/>
                 <div className="timesentreceive">
                   <label>
                     {val.status} {val.tsent}
@@ -161,17 +173,19 @@ const Chat: React.FC = () => {
           }
         })}
       </IonContent>
-      <IonFooter>
-        <div className="inputsends">
-          <IonTextarea
-            onIonChange={(e) => setText(e.detail.value!)}
-            placeholder="What can I help you with?"
-          ></IonTextarea>
-        </div>
-        <div className="sendbut">
-          <IonButton onClick={sendMessages}>
-            <IonIcon icon={send} />
-          </IonButton>
+      <IonFooter color="light">
+        <div className="backgroundembaixo">
+          <div className="inputsends">
+            <IonTextarea
+              onIonChange={(e) => setText(e.detail.value!)}
+              placeholder="What can I help you with?"
+            ></IonTextarea>
+          </div>
+          <div className="sendbut">
+            <IonButton onClick={sendMessages}>
+              <IonIcon icon={send} />
+            </IonButton>
+          </div>
         </div>
       </IonFooter>
     </IonPage>

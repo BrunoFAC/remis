@@ -17,7 +17,7 @@
   font-size: 13.5px;
   background-color: rgb(250, 250, 250);
   border-radius: 5px;
-  border-color: rgb(201, 201, 201);
+  border-color: #003c4d;
   border-width: 2px;
   border-style: solid;
 }
@@ -27,7 +27,7 @@
   font-size: 13.5px;
   border-radius: 5px;
   background-color: rgb(250, 250, 250);
-  border-color: rgb(201, 201, 201);
+  border-color: #003c4d;
   border-width: 2px;
   border-style: solid;
 }
@@ -44,14 +44,17 @@
   background: #003c4d;
   color: white;
   height: 35px;
-  width: 100px;
+  width: 150px;
   border-radius: 8px;
   font-size: 15px;
+}
+ion-item.item-interactive.item-select.item.ios.item-fill-none.ion-activatable.ion-focusable.item-label {
+  border-radius: 5px;
 }
 .totalredirectregister {
   padding-top: 10px;
 }
 .redirectregister {
   background-color: white;
-  color: blue;
+  color: #003c4d;
 }
