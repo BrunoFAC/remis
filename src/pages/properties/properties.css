@@ -1,0 +1,45 @@
+@import url("https://cdn.syncfusion.com/ej2/material.css");
+.meetings{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+.inputmeetings {
+    border: 1px solid #e3165b;
+    display: flex;
+    padding-top: 10px;
+  }
+.serviceicon{
+    padding: 2vh;
+    border: 2px;
+    max-width: 300px;
+    max-height: 300px;
+    border-color: #e3165b;
+    background-color: #e3165b;
+}
+.servicebox{
+    background-color: aqua;
+}
+
+.swiper-container {
+    max-height: 260px;
+    max-width: 320px;
+    width: 320px;
+}
+
+.rented_propertie {
+    background-color: red;
+    color: #fff;
+    padding: 10px;
+}
+
+.available_propertie {
+    background-color: green;
+    color: #fff;
+    padding: 15px;
+}
+
+.btn_seeproperty {
+    margin: 5%;
+}

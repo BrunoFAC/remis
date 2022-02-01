@@ -36,6 +36,9 @@ import {
   warningSharp,
 } from "ionicons/icons";
 import "./Menu.css";
+import { useEffect, useState } from "react";
+import { decodeToken } from "react-jwt";
+import { scryRenderedComponentsWithType } from "react-dom/test-utils";
 
 interface AppPage {
   url: string;
@@ -44,13 +47,7 @@ interface AppPage {
   title: string;
 }
 
-const appPages: AppPage[] = [
-  {
-    title: "Dashboard",
-    url: "/page/Dashboard",
-    iosIcon: analyticsOutline,
-    mdIcon: analyticsSharp,
-  },
+const appPagesLandlord: AppPage[] = [
   {
     title: "Properties",
     url: "/page/Properties",
@@ -74,12 +71,53 @@ const appPages: AppPage[] = [
     url: "/page/ExtraServices",
     iosIcon: constructOutline,
     mdIcon: constructSharp,
-  }
+  },
 ];
+
+const appPagesTenant: AppPage[] = [
+  {
+    title: "Dashboard",
+    url: "/page/Dashboard",
+    iosIcon: analyticsOutline,
+    mdIcon: analyticsSharp,
+  },
+  {
+    title: "Chat",
+    url: "/page/Chat",
+    iosIcon: chatbubblesOutline,
+    mdIcon: chatbubblesSharp,
+  },
+  {
+    title: "Meetings",
+    url: "/page/Meetings",
+    iosIcon: calendarClearOutline,
+    mdIcon: calendarClearSharp,
+  },
+  {
+    title: "Extra Services",
+    url: "/page/ExtraServices",
+    iosIcon: constructOutline,
+    mdIcon: constructSharp,
+  },
+];
+
 const Menu: React.FC = () => {
   const location = useLocation();
- 
-  
+  let [myDecodedToken, setMyDecodedToken] = useState([]);
+  const token = localStorage.getItem("user-info")?.toString();
+  let [type, setType] = useState(0);
+  function checkUser() {
+    let tokend: any = [];
+    if (token != null) {
+      tokend = decodeToken(token);
+      setMyDecodedToken(tokend);
+      setType(tokend.type);
+    }
+  }
+
+  useEffect(() => {
+    checkUser();
+  }, []);
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
@@ -89,7 +127,7 @@ const Menu: React.FC = () => {
             REMIS
           </IonListHeader>
           <IonList />
-          {appPages.map((appPage, index) => {
+          {appPagesLandlord.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
                 <IonItem
