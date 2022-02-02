@@ -73,7 +73,7 @@ const Meetings: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <div className="meetings">
+        <div className ="meetings">
           <IonDatetime
             presentation="date"
             min={minDate}
