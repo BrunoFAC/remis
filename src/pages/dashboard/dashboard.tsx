@@ -44,7 +44,7 @@ import { decodeToken } from "react-jwt";
 import axios from "axios";
 const Dashboard: React.FC = () => {
   const history = useHistory();
-  let [seeproperties, setSeeproperties] = useState([]);
+  let seeproperties = {};
   const slideOpts = {
     slidesPerView: 1,
     autoplay: true,
@@ -72,15 +72,14 @@ const Dashboard: React.FC = () => {
           if (response.data == 0) {
             console.log(response);
           } else {
-            setSeeproperties(response.data);
-            //console.log(response.data);
+            seeproperties = response.data;
+            console.log(response);
           }
         });
     }
   }
   useEffect(() => {
     properties();
-    
     console.log(seeproperties);
   }, []);
 
@@ -95,7 +94,8 @@ const Dashboard: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-     {/*   {seeproperties.map((val: any, key: any) => {
+        <div>{seeproperties.property_name}</div>
+        {/*   {seeproperties.map((val: any, key: any) => {
           return (
             <IonCol key={val.id}>
               <IonCard>
