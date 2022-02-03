@@ -45,7 +45,7 @@ const Chat: React.FC = () => {
   const [text, setText] = useState<string>();
   let [myDecodedToken, setMyDecodedToken] = useState([]);
   let [id, setId] = useState(0);
-  let [receiverid, setReceiverid] = useState(0);
+  let receiverid: any;
 
   const token = localStorage.getItem("user-info")?.toString();
   function gettenantschat() {
@@ -54,27 +54,48 @@ const Chat: React.FC = () => {
       tokend = decodeToken(token);
       setMyDecodedToken(tokend);
       setId(tokend.type);
-      axios
-        .post("https://remis.jbr-projects.pt/db/index.php?f=chat", {
-          type: tokend.type,
-          id: tokend.id,
-        })
-        .then((response) => {
-          if (response.data == 0) {
-            console.log("cannot show messages");
-          } else {
-            setMessages(response.data);
-
-            console.log(response);
-            {
-              messages.map((val: any) => {
-                if (val.sender != tokend.id) {
-                  return setReceiverid(val.sender);
-                }
-              });
+      if (tokend.type == 0) {
+        axios
+          .post("https://remis.jbr-projects.pt/db/index.php?f=chat", {
+            type: tokend.type,
+            id: tokend.id,
+          })
+          .then((response) => {
+            if (response.data == 0) {
+              console.log("cannot show messages");
+            } else {
+              setMessages(response.data);
+              {
+                messages.map((val: any) => {
+                  if (val.sender != tokend.id) {
+                    return (receiverid = val.sender);
+                  }
+                });
+              }
             }
-          }
-        });
+          });
+      } else {
+        axios
+          .post("https://remis.jbr-projects.pt/db/index.php?f=chat", {
+            type: tokend.type,
+            id: tokend.id,
+            tenant_id: localStorage.getItem("tenant_id"),
+          })
+          .then((response) => {
+            if (response.data == 0) {
+              console.log("cannot show messages");
+            } else {
+              setMessages(response.data);
+              {
+                messages.map((val: any) => {
+                  if (val.sender != tokend.id) {
+                    return (receiverid = val.sender);
+                  }
+                });
+              }
+            }
+          });
+      }
     }
   }
 
@@ -99,7 +120,13 @@ const Chat: React.FC = () => {
       let tokend: any = [];
       tokend = decodeToken(token);
       setMyDecodedToken(tokend);
+      console.log(tokend);
       setId(tokend.type);
+      if (tokend.type == 0) {
+        receiverid = tokend.landlord_id;
+      } else {
+        receiverid = localStorage.getItem("tenant_id");
+      }
       axios
         .post("https://remis.jbr-projects.pt/db/index.php?f=sendMessage", {
           id: tokend.id,
@@ -113,11 +140,13 @@ const Chat: React.FC = () => {
           if (result.data == 0) {
             console.log("cannot show messages");
           } else {
-            if (text =="") {
-              alert("You need to write a message/ you can't spam the same message");
+            if (text == "") {
+              alert(
+                "You need to write a message/ you can't spam the same message"
+              );
             } else {
-              setText("")
-              gettenantschat(); 
+              setText("");
+              gettenantschat();
             }
           }
         });
@@ -147,8 +176,6 @@ const Chat: React.FC = () => {
             return (
               <div className="spacing1">
                 <label className="whosends">{val.text}</label>
-
-               
 
                 <div className="spacing1">
                   <label className="timesentsends">

@@ -35,6 +35,7 @@ import Meetings from "./pages/meetings/meetings";
 import ExtraServices from "./pages/extraservices/extraservices";
 import Properties from "./pages/properties/properties";
 import Dashboard from "./pages/dashboard/dashboard";
+import Listtenant from "./pages/listtenant/listtenant";
 
 setupIonicReact();
 
@@ -58,7 +59,7 @@ const App: React.FC = () => {
               <Register />
             </Route>
             <Route path="/page/Dashboard">
-              <Dashboard/>
+              <Dashboard />
             </Route>
             <Route path="/page/Chat" exact={true}>
               <Chat />
@@ -71,6 +72,9 @@ const App: React.FC = () => {
             </Route>
             <Route path="/page/Properties">
               <Properties />
+            </Route>
+            <Route path="/page/Listtenant">
+              <Listtenant />
             </Route>
             <Route path="/page/ExtraServices">
               <ExtraServices />

@@ -41,7 +41,12 @@ import {
 } from "react";
 import { decodeToken } from "react-jwt";
 import axios from "axios";
-import { arrowForward, informationCircle, eyeOutline } from "ionicons/icons";
+import {
+  arrowForward,
+  informationCircle,
+  eyeOutline,
+  createOutline,
+} from "ionicons/icons";
 
 const Properties: React.FC = () => {
   let [availableProperties, setProperties] = useState([]);
@@ -119,9 +124,9 @@ const Properties: React.FC = () => {
                       <div className="available_propertie">
                         <IonLabel>Available</IonLabel>
                       </div>
-                      <IonButton className="btn_seeproperty">
-                        <IonIcon slot="start" icon={eyeOutline} />
-                        See Property
+                      <IonButton color="warning" className="btn_seeproperty">
+                        <IonIcon slot="start" icon={createOutline} />
+                        Edit Property
                         <IonIcon slot="end" icon={arrowForward} />
                       </IonButton>
                     </IonCard>

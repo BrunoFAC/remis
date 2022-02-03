@@ -39,12 +39,13 @@ import {
   arrowForward,
   eyeOutline,
   informationCircle,
+  downloadOutline,
 } from "ionicons/icons";
 import { decodeToken } from "react-jwt";
 import axios from "axios";
 const Dashboard: React.FC = () => {
   const history = useHistory();
-  let seeproperties = {};
+  let [seeproperties, setProperties] = useState([]);
   const slideOpts = {
     slidesPerView: 1,
     autoplay: true,
@@ -72,15 +73,13 @@ const Dashboard: React.FC = () => {
           if (response.data == 0) {
             console.log(response);
           } else {
-            seeproperties = response.data;
-            console.log(response);
+            setProperties(response.data);
           }
         });
     }
   }
   useEffect(() => {
     properties();
-    console.log(seeproperties);
   }, []);
 
   return (
@@ -94,8 +93,7 @@ const Dashboard: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <div>{seeproperties.property_name}</div>
-        {/*   {seeproperties.map((val: any, key: any) => {
+        {seeproperties.map((val: any, key: any) => {
           return (
             <IonCol key={val.id}>
               <IonCard>
@@ -116,24 +114,29 @@ const Dashboard: React.FC = () => {
                   <br />
                   Size: {val.property_size}m<sup>2</sup>
                 </IonCardContent>
-                <div className="rented_propertie">
-                  <IonLabel>Rented</IonLabel>
-                  <br />
-                  <small>
-                    This property is rented from &nbsp;
-                    {val.property_date_rented_from} to &nbsp;
-                    {val.property_date_rented_to}
-                  </small>
-                </div>
-                <IonButton className="btn_seeproperty">
-                  <IonIcon slot="start" icon={informationCircle} />
-                  See renting information
-                  <IonIcon slot="end" icon={arrowForward} />
-                </IonButton>
               </IonCard>
+              <IonList>
+                <IonListHeader>
+                  <h1>Documents</h1>
+                </IonListHeader>
+                {val.property_docs.map((val: any, key: any) => {
+                  return (
+                    <IonItem>
+                      <IonLabel>
+                        <a href={val.doc_src} download>
+                          <IonButton color="primary">
+                            <IonIcon slot="start" icon={downloadOutline} />
+                            {val.doc_name}
+                          </IonButton>
+                        </a>
+                      </IonLabel>
+                    </IonItem>
+                  );
+                })}
+              </IonList>
             </IonCol>
           );
-        })}*/}
+        })}
       </IonContent>
     </IonPage>
   );

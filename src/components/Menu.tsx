@@ -30,6 +30,7 @@ import {
   heartOutline,
   heartSharp,
   logInOutline,
+  logOutOutline,
   trashOutline,
   trashSharp,
   warningOutline,
@@ -56,7 +57,7 @@ const appPagesLandlord: AppPage[] = [
   },
   {
     title: "Chat",
-    url: "/page/Chat",
+    url: "/page/Listtenant",
     iosIcon: chatbubblesOutline,
     mdIcon: chatbubblesSharp,
   },
@@ -102,58 +103,127 @@ const appPagesTenant: AppPage[] = [
 ];
 
 const Menu: React.FC = () => {
+  const history = useHistory();
   const location = useLocation();
   let [myDecodedToken, setMyDecodedToken] = useState([]);
   const token = localStorage.getItem("user-info")?.toString();
   let [type, setType] = useState(0);
-  function checkUser() {
+
+  useEffect(() => {
     let tokend: any = [];
     if (token != null) {
       tokend = decodeToken(token);
       setMyDecodedToken(tokend);
       setType(tokend.type);
     }
+  }, []);
+
+  function logout() {
+    localStorage.removeItem("user-info");
+    alert("Successful logout!");
+    window.location.href = "http://localhost:8100/page/Login";
+    //history.push("/page/Login");
   }
 
-  useEffect(() => {
-    checkUser();
-  }, []);
-  return (
-    <IonMenu contentId="main" type="overlay">
-      <IonContent>
-        <IonList id="inbox-list">
-          <IonListHeader>
-            <img src={require("./images/3.png")} />
-            REMIS
-          </IonListHeader>
-          <IonList />
-          {appPagesLandlord.map((appPage, index) => {
-            return (
-              <IonMenuToggle key={index} autoHide={false}>
-                <IonItem
-                  className={
-                    location.pathname === appPage.url ? "selected" : ""
-                  }
-                  routerLink={appPage.url}
-                  routerDirection="none"
-                  lines="none"
-                  detail={false}
-                >
-                  <IonIcon
-                    slot="start"
-                    ios={appPage.iosIcon}
-                    md={appPage.mdIcon}
-                  />
-                  <IonLabel>{appPage.title}</IonLabel>
-                </IonItem>
-              </IonMenuToggle>
-            );
-          })}
-        </IonList>
-        <div className="creators">REMIS®</div>
-      </IonContent>
-    </IonMenu>
-  );
+  if (type == 0) {
+    return (
+      <IonMenu contentId="main" type="overlay">
+        <IonContent>
+          <IonList id="inbox-list">
+            <IonListHeader>
+              <img src={require("./images/3.png")} />
+              REMIS
+            </IonListHeader>
+            <IonList />
+            {appPagesTenant.map((appPage, index) => {
+              return (
+                <IonMenuToggle key={index} autoHide={false}>
+                  <IonItem
+                    className={
+                      location.pathname === appPage.url ? "selected" : ""
+                    }
+                    routerLink={appPage.url}
+                    routerDirection="none"
+                    lines="none"
+                    detail={false}
+                  >
+                    <IonIcon
+                      slot="start"
+                      ios={appPage.iosIcon}
+                      md={appPage.mdIcon}
+                    />
+                    <IonLabel>{appPage.title}</IonLabel>
+                  </IonItem>
+                </IonMenuToggle>
+              );
+            })}
+            <IonItem
+              button
+              onClick={() => {
+                logout();
+              }}
+              routerDirection="none"
+              lines="none"
+              detail={false}
+            >
+              <IonIcon slot="start" icon={logOutOutline} />
+              <IonLabel>Logout</IonLabel>
+            </IonItem>
+          </IonList>
+          <div className="creators">REMIS®</div>
+        </IonContent>
+      </IonMenu>
+    );
+  } else {
+    return (
+      <IonMenu contentId="main" type="overlay">
+        <IonContent>
+          <IonList id="inbox-list">
+            <IonListHeader>
+              <img src={require("./images/3.png")} />
+              REMIS
+            </IonListHeader>
+            <IonList />
+            {appPagesLandlord.map((appPage, index) => {
+              return (
+                <IonMenuToggle key={index} autoHide={false}>
+                  <IonItem
+                    className={
+                      location.pathname === appPage.url ? "selected" : ""
+                    }
+                    routerLink={appPage.url}
+                    routerDirection="none"
+                    lines="none"
+                    detail={false}
+                  >
+                    <IonIcon
+                      slot="start"
+                      ios={appPage.iosIcon}
+                      md={appPage.mdIcon}
+                    />
+                    <IonLabel>{appPage.title}</IonLabel>
+                  </IonItem>
+                </IonMenuToggle>
+              );
+            })}
+            <IonItem
+              button
+              onClick={() => {
+                logout();
+              }}
+              routerDirection="none"
+              lines="none"
+              detail={false}
+            >
+              <IonIcon slot="start" icon={logOutOutline} />
+              <IonLabel>Logout</IonLabel>
+            </IonItem>
+          </IonList>
+          <div className="creators">REMIS®</div>
+        </IonContent>
+      </IonMenu>
+    );
+  }
 };
 
 export default Menu;

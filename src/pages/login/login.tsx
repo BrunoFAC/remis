@@ -38,7 +38,7 @@ const Login: React.FC = () => {
           } else {
             localStorage.setItem("user-info", response.data);
             alert("Successful login!");
-            history.push("/page/Dashboard")
+            window.location.href = "http://localhost:8100/page/Dashboard";
           }
         });
     } else if (user == "1") {
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
           } else {
             localStorage.setItem("user-info", response.data);
             alert("Successful login!");
-            history.push("/page/Meetings")
+            window.location.href = "http://localhost:8100/page/Properties";
           }
         });
     }
