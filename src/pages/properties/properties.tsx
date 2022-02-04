@@ -46,6 +46,7 @@ import {
   informationCircle,
   eyeOutline,
   createOutline,
+  addCircle,
 } from "ionicons/icons";
 
 const Properties: React.FC = () => {
@@ -95,6 +96,10 @@ const Properties: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent scrollEvents={true} fullscreen>
+        <IonButton color="primary" className="btn_seeproperty">
+          <IonIcon slot="start" icon={addCircle} />
+          Add new property
+        </IonButton>
         <IonGrid>
           <IonRow>
             {availableProperties.map((val: any, key: any) => {

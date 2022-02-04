@@ -29,7 +29,17 @@ import {
   CheckboxCustomEvent,
   CheckboxChangeEventDetail,
 } from "@ionic/react";
-import { pin, wifi, wine, warning, walk, pricetag } from "ionicons/icons";
+import {
+  pin,
+  wifi,
+  wine,
+  warning,
+  walk,
+  pricetag,
+  createOutline,
+  arrowForward,
+  addCircle,
+} from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import "./extraservices.css";
 import { MouseEventHandler, useEffect, useState } from "react";
@@ -55,21 +65,25 @@ const ExtraServices = () => {
     ) as ExtraService[]) || []
   );
   const [price, setPrice] = useState<string>("");
+  let [type, setType] = useState(0);
 
   useEffect(() => {
     function loadExtraServices() {
+      let tokend: any = [];
+      if (token != null) {
+        tokend = decodeToken(token);
+        setMyDecodedToken(tokend);
+        setType(tokend.type);
+      }
       axios
         .post("https://remis.jbr-projects.pt/db/index.php?f=getExtraServices", {
           extra: extras,
         })
         .then((response) => {
-          console.log(response);
-
           if (response.data == 0) {
             console.log("extras is empty");
           } else {
             setExtras(response.data);
-            console.log(response.data);
           }
         });
     }
@@ -91,7 +105,6 @@ const ExtraServices = () => {
         0
       );
 
-      console.log(price);
       setPrice(`${price.toFixed(2)}€`);
     }
     updatePrice();
@@ -120,70 +133,114 @@ const ExtraServices = () => {
       let tokend: any = [];
       tokend = decodeToken(token);
       setMyDecodedToken(tokend);
+      let services = [];
+      services = selectedServices;
+      console.log(services);
       axios
         .post("https://remis.jbr-projects.pt/db/index.php?f=generatePDF", {
-          selectedServices: selectedServices,
+          selectedServicesArray: services,
           total_price: price,
           tenant_id: tokend.id,
         })
         .then((response) => {
-          console.log(response);
-
+          console.log(response.data);
           if (response.data == 0) {
             alert("Error Occurred");
           } else {
-            alert("Services Added. You can download your invoice");
+            alert("Your services has been requested");
           }
         });
     }
-    console.log("Selected services:", selectedServices);
-    console.log("Total price:", price);
   };
 
-  return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonMenuButton />
-          </IonButtons>
-          <IonTitle>Extra Services</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-        <IonGrid>
-          <IonRow>
-            {extras.map(({ service, image, price }) => (
-              <IonCol>
-                <IonCard>
-                  <IonCardHeader>
-                    <IonCardTitle>{service}</IonCardTitle>
-                  </IonCardHeader>
+  if (type == 0) {
+    return (
+      <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonMenuButton />
+            </IonButtons>
+            <IonTitle>Extra Services</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <IonGrid>
+            <IonRow>
+              {extras.map(({ service, image, price }) => (
+                <IonCol>
+                  <IonCard>
+                    <IonCardHeader>
+                      <IonCardTitle>{service}</IonCardTitle>
+                    </IonCardHeader>
 
-                  <IonCardContent>
-                    <img src={image} alt={service} />
-                  </IonCardContent>
-                  <IonItem className="ion-activated">
-                    <IonLabel>Order for {price}</IonLabel>
-                    <IonCheckbox
-                      slot="end"
-                      color="primary"
-                      value={service}
-                      onIonChange={handleServiceToggle}
-                    />
-                  </IonItem>
-                </IonCard>
-              </IonCol>
-            ))}
-          </IonRow>
-          <IonRow>Total price: {price}</IonRow>
-          <IonButton expand="block" onClick={handleAddServicesClick}>
-            Add services
+                    <IonCardContent>
+                      <img src={image} alt={service} />
+                    </IonCardContent>
+                    <IonItem className="ion-activated">
+                      <IonLabel>Order for {price}</IonLabel>
+                      <IonCheckbox
+                        slot="end"
+                        color="primary"
+                        value={service}
+                        onIonChange={handleServiceToggle}
+                      />
+                    </IonItem>
+                  </IonCard>
+                </IonCol>
+              ))}
+            </IonRow>
+            <IonButton expand="block" onClick={handleAddServicesClick}>
+              Request services {price}
+            </IonButton>
+          </IonGrid>
+        </IonContent>
+      </IonPage>
+    );
+  } else {
+    return (
+      <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonMenuButton />
+            </IonButtons>
+            <IonTitle>Extra Services</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <IonButton color="primary" className="btn_seeproperty">
+            <IonIcon slot="start" icon={addCircle} />
+            Add new service
           </IonButton>
-        </IonGrid>
-      </IonContent>
-    </IonPage>
-  );
+          <IonGrid>
+            {extras.map(({ service, image, price }) => (
+              <IonRow>
+                <IonCol>
+                  <IonCard>
+                    <IonCardHeader>
+                      <IonCardTitle>{service}</IonCardTitle>
+                    </IonCardHeader>
+                    <IonCardContent>
+                      <img src={image} alt={service} />
+                    </IonCardContent>
+                    <IonItem className="ion-activated">
+                      <IonLabel>Price: {price}</IonLabel>
+                    </IonItem>
+                    <IonButton color="warning" className="btn_seeproperty">
+                      <IonIcon slot="start" icon={createOutline} />
+                      Edit Service
+                      <IonIcon slot="end" icon={arrowForward} />
+                    </IonButton>
+                  </IonCard>
+                </IonCol>
+              </IonRow>
+            ))}
+          </IonGrid>
+        </IonContent>
+      </IonPage>
+    );
+  }
 };
 
 export default ExtraServices;
