@@ -84,7 +84,12 @@ const Properties: React.FC = () => {
   useEffect(() => {
     properties();
   }, []);
-
+  const history = useHistory();
+  function redirectnewproperty(){
+    if (localStorage.getItem("user-info")) {
+      history.push("/page/newProperty");
+    }
+  }
   return (
     <IonPage>
       <IonHeader>
@@ -96,7 +101,7 @@ const Properties: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent scrollEvents={true} fullscreen>
-        <IonButton color="primary" className="btn_seeproperty">
+        <IonButton color="primary" onClick={redirectnewproperty}className="btn_seeproperty">
           <IonIcon slot="start" icon={addCircle} />
           Add new property
         </IonButton>

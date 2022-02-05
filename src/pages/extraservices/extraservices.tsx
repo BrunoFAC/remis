@@ -152,6 +152,12 @@ const ExtraServices = () => {
         });
     }
   };
+  const history = useHistory();
+  function redirectnewservice(){
+    if (localStorage.getItem("user-info")) {
+      history.push("/page/newService");
+    }
+  }
 
   if (type == 0) {
     return (
@@ -209,7 +215,7 @@ const ExtraServices = () => {
           </IonToolbar>
         </IonHeader>
         <IonContent>
-          <IonButton color="primary" className="btn_seeproperty">
+          <IonButton color="primary" onClick={redirectnewservice} className="btn_seeproperty">
             <IonIcon slot="start" icon={addCircle} />
             Add new service
           </IonButton>
