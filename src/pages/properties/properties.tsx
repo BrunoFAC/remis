@@ -104,7 +104,10 @@ const Properties: React.FC = () => {
         <IonGrid>
           <IonRow>
             {availableProperties.map((val: any, key: any) => {
-              if (val.property_available == 1) {
+              if (
+                val.property_available == 1 &&
+                val.property_images.length > 0
+              ) {
                 return (
                   <IonCol key={val.id}>
                     <IonCard>
@@ -138,7 +141,36 @@ const Properties: React.FC = () => {
                     </IonCard>
                   </IonCol>
                 );
-              } else {
+              } else if (
+                val.property_available == 1 &&
+                val.property_images.length == 0
+              ) {
+                return (
+                  <IonCol key={val.id}>
+                    <IonCard>
+                      <IonCardHeader>
+                        <IonCardTitle>{val.property_name}</IonCardTitle>
+                      </IonCardHeader>
+                      <IonCardContent className="content-card">
+                        Price: €{val.property_price_month}
+                        <br />
+                        Size: {val.property_size}m<sup>2</sup>
+                      </IonCardContent>
+                      <div className="available_propertie">
+                        <IonLabel>Available</IonLabel>
+                      </div>
+                      <IonButton color="warning" className="btn_seeproperty">
+                        <IonIcon slot="start" icon={createOutline} />
+                        Edit Property
+                        <IonIcon slot="end" icon={arrowForward} />
+                      </IonButton>
+                    </IonCard>
+                  </IonCol>
+                );
+              } else if (
+                val.property_available == 0 &&
+                val.property_images.length > 0
+              ) {
                 return (
                   <IonCol key={val.id}>
                     <IonCard>
@@ -153,6 +185,35 @@ const Properties: React.FC = () => {
                           }
                         )}
                       </IonSlides>
+                      <IonCardHeader>
+                        <IonCardTitle>{val.property_name}</IonCardTitle>
+                      </IonCardHeader>
+                      <IonCardContent className="content-card">
+                        Price: €{val.property_price_month}
+                        <br />
+                        Size: {val.property_size}m<sup>2</sup>
+                      </IonCardContent>
+                      <div className="rented_propertie">
+                        <IonLabel>Rented</IonLabel>
+                        <br />
+                        <small>
+                          This property is rented from &nbsp;
+                          {val.property_date_rented_from} to &nbsp;
+                          {val.property_date_rented_to}
+                        </small>
+                      </div>
+                      <IonButton className="btn_seeproperty">
+                        <IonIcon slot="start" icon={informationCircle} />
+                        See renting information
+                        <IonIcon slot="end" icon={arrowForward} />
+                      </IonButton>
+                    </IonCard>
+                  </IonCol>
+                );
+              } else {
+                return (
+                  <IonCol key={val.id}>
+                    <IonCard>
                       <IonCardHeader>
                         <IonCardTitle>{val.property_name}</IonCardTitle>
                       </IonCardHeader>

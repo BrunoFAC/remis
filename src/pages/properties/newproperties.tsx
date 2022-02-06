@@ -74,7 +74,7 @@ const NewProperties: React.FC = () => {
               console.log("Property can't be added");
             } else {
               alert("Property has been added");
-              console.log(response.data);
+              window.location.href = "http://localhost:8100/page/Properties";
             }
           });
       }

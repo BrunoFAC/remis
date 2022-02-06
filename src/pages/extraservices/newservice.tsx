@@ -70,6 +70,7 @@ const NewService: React.FC = () => {
           } else {
             console.log(response.data);
             alert("New product registered.");
+            window.location.href = "http://localhost:8100/page/ExtraServices";
           }
         });
     }
@@ -86,7 +87,7 @@ const NewService: React.FC = () => {
       </IonHeader>
       <IonContent>
         <div className="service">
-            <h1 className="create">Create a new service</h1>
+          <h1 className="create">Create a new service</h1>
           <div className="firstnameRegisto">
             <input
               className="registoplaceholder"
@@ -105,12 +106,11 @@ const NewService: React.FC = () => {
               value={price}
               onChange={(e) => setPrice(e.target.value.replace(/[^0-9]/g, ""))}
               placeholder="Insert the price of new service.."
-              
             />
           </div>
           <div className="totalbuttonregistar">
             <button onClick={addnewservices} className="botaoService">
-                New Service
+              New Service
             </button>
           </div>
         </div>
