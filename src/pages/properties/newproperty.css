@@ -1,0 +1,10 @@
+.btnSize {
+  height: 35px;
+  width: 300px;
+  font-size: 13.5px;
+  background-color: rgb(250, 250, 250);
+  border-radius: 5px;
+  border-color: #003C4D;
+  border-width: 2px;
+  border-style: solid;
+}
