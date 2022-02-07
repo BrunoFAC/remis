@@ -143,7 +143,7 @@ const Properties: React.FC = () => {
                 );
               } else if (
                 val.property_available == 1 &&
-                val.property_images.length == 0
+                val.property_images == 0
               ) {
                 return (
                   <IonCol key={val.id}>
