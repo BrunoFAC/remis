@@ -66,6 +66,9 @@ const App: React.FC = () => {
             <Route path="/page/newService">
               <NewService />
             </Route>
+            <Route path="/page/Dashboard">
+            <Dashboard />
+            </Route>
             <Route path="/page/Chat" exact={true}>
               <Chat />
             </Route>
